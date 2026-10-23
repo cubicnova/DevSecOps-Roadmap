@@ -1,0 +1,53 @@
+# Illustrative baseline for review exercises; not a universal production policy.
+# Tailor each value to your application, platform, and business requirements.
+application:
+  environment: production
+  debug: false
+  allowed_hosts:
+    - app.example.test
+  error_responses:
+    expose_stack_traces: false
+    include_secrets: false
+  cors:
+    allowed_origins:
+      - https://app.example.test
+    allow_credentials: false # Enable only for a documented use case and trusted origins.
+  sessions:
+    secure_cookie: true
+    http_only: true
+    same_site: Lax # Validate compatibility with SSO and cross-site workflows.
+
+secrets:
+  source: approved_secret_manager
+  committed_to_source_control: false
+  logged: false
+  rotation_owner: application-team
+
+network:
+  default_inbound: deny
+  public_admin_interface: false
+  database_publicly_accessible: false
+  rules_require_owner_and_justification: true
+
+identity:
+  workload_identity: dedicated
+  least_privilege: true
+  shared_admin_accounts: false
+  privileged_access_mfa: required_where_supported
+
+container:
+  run_as_non_root: true
+  privileged: false
+  secrets_baked_into_image: false
+  image_pinned_or_verified: true
+  resource_limits_defined: true
+
+monitoring:
+  audit_logging_enabled: true
+  sensitive_values_redacted: true
+  configuration_drift_detection: true
+
+change_control:
+  peer_review_required: true
+  validation_required: true
+  rollback_plan_required: true
