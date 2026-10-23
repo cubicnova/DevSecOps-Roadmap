@@ -1,0 +1,2 @@
+API Name,Base Path,Version,Endpoint,HTTP Method,Owner,Purpose,Data Classification,Authentication Required,Required Role or Scope,Object-Level Authorization,Rate Limit or Quota,External Dependencies,Status,Deprecation Date,Notes
+Example Orders API,/api/orders,v1,/api/orders/{order_id},GET,Orders Team,Read an order,Confidential,Yes,orders:read,Verify order ownership,Per-user and per-tenant limit,Payments API,Active,,Example row; replace with your inventory
