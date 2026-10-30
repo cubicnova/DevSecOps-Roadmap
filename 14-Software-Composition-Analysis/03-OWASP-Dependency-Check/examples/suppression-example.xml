@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+    <!-- Educational example only. Replace with a verified false-positive case.
+         Confirm the suppression schema supported by your installed release.
+         Keep criteria narrow and add an owner/review date. -->
+    <suppress>
+        <notes><![CDATA[
+        TRAINING PLACEHOLDER — do not use as a real suppression.
+        Owner: security-team
+        Review date: YYYY-MM-DD
+        Evidence: document exact package identity and why the CVE does not apply.
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/example\.invalid/training-placeholder@.*$</packageUrl>
+        <cve>CVE-2099-0000</cve>
+    </suppress>
+</suppressions>

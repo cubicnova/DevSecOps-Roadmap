@@ -1,0 +1,6 @@
+# Example properties only. Do not put a real API key in this file.
+# Prefer the documented environment-variable option in CLI/plugin configuration.
+# NVD API key: supply through a secret manager / environment at runtime.
+# Example shell:
+#   export NVD_API_KEY='injected-by-secret-store'
+# Avoid committing real credentials or enabling verbose logging around secrets.
