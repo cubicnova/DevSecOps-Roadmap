@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CubicNovaDemoScanner",
+          "version": "1.0.0",
+          "rules": [
+            {
+              "id": "PY-DEMO-001",
+              "shortDescription": {
+                "text": "Potential unsafe SQL construction"
+              },
+              "fullDescription": {
+                "text": "Review SQL statements constructed using untrusted input."
+              },
+              "help": {
+                "text": "Use parameterized SQL statements."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "PY-DEMO-001",
+          "level": "warning",
+          "message": {
+            "text": "Potential SQL injection: review query construction."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/repository.py"
+                },
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 5
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

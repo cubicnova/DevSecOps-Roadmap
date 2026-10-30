@@ -1,0 +1,50 @@
+# Starter workflow: validate action version and pin to an immutable commit SHA
+# before using this in a production repository.
+name: DAST Baseline
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  dast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Start isolated test application
+        run: docker compose -f compose.test.yml up -d
+
+      - name: Wait for application readiness
+        env:
+          APP_HEALTH_URL: http://127.0.0.1:3000/
+        run: bash scripts/wait-for-app.sh
+
+      - name: Run ZAP baseline scan
+        # Replace this version tag with a reviewed immutable commit SHA.
+        uses: zaproxy/action-baseline@v0.15.0
+        with:
+          target: http://127.0.0.1:3000
+          artifact_name: zap-baseline-report
+          fail_action: false
+
+      - name: Upload supplementary reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dast-reports
+          path: |
+            report_html.html
+            report_json.json
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Tear down test environment
+        if: always()
+        run: docker compose -f compose.test.yml down -v

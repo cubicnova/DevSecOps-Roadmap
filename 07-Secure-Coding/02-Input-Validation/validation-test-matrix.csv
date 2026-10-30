@@ -1,0 +1,13 @@
+Test ID,Field or Endpoint,Input Category,Test Input,Expected Result,Actual Result,Status,Evidence or Notes
+IV-001,page_size,Valid minimum,1,Accept; page size is 1,,,Not Run,Example only
+IV-002,page_size,Valid maximum,100,Accept; page size is 100,,,Not Run,Example only
+IV-003,page_size,Below minimum,0,Reject with safe validation error,,,Not Run,Example only
+IV-004,page_size,Above maximum,101,Reject with safe validation error,,,Not Run,Example only
+IV-005,page_size,Wrong type,1.5,Reject if contract requires an integer,,,Not Run,Example only
+IV-006,page_size,Boolean,true,Reject if contract requires integer and booleans are not allowed,,,Not Run,Python bool gotcha
+IV-007,page_size,Missing,field omitted,Reject or apply documented default,,,Not Run,Confirm API contract
+IV-008,project_code,Valid format,AB-1234,Accept,,,Not Run,Example only
+IV-009,project_code,Unexpected suffix,AB-1234-extra,Reject,,,Not Run,Example only
+IV-010,display_name,Unicode and punctuation,Élodie O'Neil,Accept if supported by product policy,,,Not Run,Do not over-restrict names
+IV-011,request body,Oversized payload,Payload exceeds configured limit,Reject before expensive processing where possible,,,Not Run,Use safe test data
+IV-012,request body,Unknown field,unexpected_property present,Reject or ignore according to explicit schema policy,,,Not Run,Policy must be explicit
