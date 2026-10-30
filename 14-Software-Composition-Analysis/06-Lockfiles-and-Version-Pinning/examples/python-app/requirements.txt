@@ -1,0 +1,3 @@
+# Illustrative pinned requirements; no hashes supplied in this basic file.
+requests==2.32.3
+urllib3==2.2.3
