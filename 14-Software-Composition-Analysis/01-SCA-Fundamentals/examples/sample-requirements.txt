@@ -1,0 +1,1 @@
+# Educational fixture only; versions are illustrative pins.\nrequests==2.31.0\ncertifi==2023.7.22\npytest==7.4.0\n
