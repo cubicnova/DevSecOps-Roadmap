@@ -1,0 +1,26 @@
+# Starter GitLab CI example. Adapt runner networking and image version.
+stages:
+  - test
+  - dast
+
+dast_baseline:
+  stage: dast
+  image: ghcr.io/zaproxy/zaproxy:stable
+  variables:
+    DAST_TARGET: "http://app-under-test:3000"
+  script:
+    - mkdir -p reports
+    - zap-baseline.py -t "$DAST_TARGET" -r reports/baseline.html -J reports/baseline.json
+  artifacts:
+    when: always
+    paths:
+      - reports/
+    expire_in: 7 days
+  allow_failure: false
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+
+# Ensure app-under-test is a reachable service or preview URL.
+# Do not assume localhost inside this job points to the application container.
+# For production, pin the scanner image by immutable digest and protect artifacts.
